@@ -42,6 +42,7 @@ class TodoController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
+            'des' => 'required'
         ]);
         if ($validator->fails()) {
             return redirect()->route('todos.index')->withErrors($validator);
@@ -49,6 +50,7 @@ class TodoController extends Controller
         // dd($request->dropdown);
         Todo::create([
             'title' => $request->title,
+            'des' => $request->des,
             'uid' => $request->dropdown,
         ]);
 
@@ -90,6 +92,7 @@ class TodoController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
+            'des' => 'required'
 
         ]);
 
@@ -98,6 +101,7 @@ class TodoController extends Controller
         }
         $todo = Todo::where('id', $id)->first();
         $todo->title = $request->get('title');
+        $todo->des = $request->get('des');
         $todo->is_completed = $request->get('is_completed');
         $todo->save();
 
@@ -114,5 +118,10 @@ class TodoController extends Controller
     {
         Todo::where('id', $id)->delete();
         return redirect()->route('todos.index')->with('success', 'Deleted Todo');
+    }
+    public function tododata(Request $request)
+    {
+        $todos = Todo::all();
+        return view('todolist', compact('todos'));
     }
 }

@@ -14,9 +14,16 @@
             </div>
         </div>
     </div>
+    @if(Auth::user() && Auth::user()->is_admin == 1)
     <div class="container" style="text-align:center">
         <a style='padding: 0px 10px' href="{{route( 'user.index' )}}">Add User</a>
         <a style='padding: 0px 10px' href="{{route('todos.index')}}">Add Todo</a>
         <a href="{{route('user.Search')}}">Search</a>
+    </div>
+    @else
+    <div class="container" style="text-align:center">
+        <a href="{{route('user.Search')}}">Search</a>
+        <a style='padding: 0px 10px' href="{{route('todos->tododata')}}">View TodoList</a>
+        @endif
     </div>
 </x-app-layout>

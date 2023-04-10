@@ -64,6 +64,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Created at</th>
                     <th scope="col">Status</th>
+                    <th scope="col">Description</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
@@ -75,6 +76,7 @@
                 <tr>
                     <th>{{$counter}}</th>
                     <td>{{$todo->title}}</td>
+                   
                     <td>{{$todo->created_at}}</td>
                     <td>
                         @if($todo->is_completed)
@@ -82,6 +84,7 @@
                         @else
                         <div class="badge bg-warning">Not Completed</div>
                         @endif
+                        <td>{{$todo->description}}</td>
                     </td>
                     <td>
                         <a href="{{route('todos.edit',['todo'=>$todo->id])}}" class="btn btn-info">Edit</a>

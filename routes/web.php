@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,18 +21,24 @@ Route::get('/', function () {
 // Route::get('/user', function () {
 //     return view('user');
 // });
-Route::resource('todos', \App\Http\Controllers\TodoController::class);
-Route::get('todos/{todo}', [\App\Http\Controllers\TodoController::class, 'destroy'])->name('todos.destory');
-
-
-Route::resource('user', \App\Http\Controllers\UserController::class);
-Route::get('user/{user}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('user.destroy');
-
-Route::get('search', [\App\Http\Controllers\UserController::class, 'Search'])->name('user.Search');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::resource('todos', \App\Http\Controllers\TodoController::class);
+    Route::get('todos/{todo}', [\App\Http\Controllers\TodoController::class, 'destroy'])->name('todos.destory');
+    Route::resource('user', \App\Http\Controllers\UserController::class);
+    Route::get('user/{user}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('user.destroy');
+});
+
+Route::get('tododata', [TodoController::class, 'tododata'])->name('todos->tododata');
+
+
+
+
+Route::get('search', [\App\Http\Controllers\UserController::class, 'Search'])->name('user.Search');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

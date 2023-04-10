@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('uid');
             $table->longText('title');
+            $table->longText('des');
             $table->boolean('is_completed')->default(0);
             $table->timestamps();
         });
