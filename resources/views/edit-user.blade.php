@@ -13,61 +13,69 @@
 </head>
 
 <body>
-    <div class="row justify-content-center mt-5">
-        <div class="col-lg-6">
-            @if(session()->has('success'))
-            <div class="alert alert-success">
-                {{ session()->get('success') }}
-            </div>
-            @endif
-
-            @if ($errors->any())
-            @foreach ($errors->all() as $error)
-            <div class="alert alert-danger">
-                {{$error}}
-            </div>
-            @endforeach
-            @endif
-        </div>
-    </div>
-    <div class="container mt-2">
-        <form method="POST" action="{{route('user.update', ['user'=> $user->id])}}">
-
+    <div class="container mt-5">
+        <form method="post" action="{{route('user.update', ['user'=> $user->id])}}">
+            @method('PUT')
             @csrf
 
-            {{ method_field('PUT') }}
-
-
-
-            <div class="form-group">
-                <label for="text">First Name</label>
-                <input type="text" class="form-control" id="text" placeholder="Enter name" value="{{$user->name}}" name="name">
+            <div class="mb-3">
+                <label for="text" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="fname" name="name" value="{{$user->name}}">
+                <span class="text-danger">
+                    @error('name'){{$message}}
+                    @enderror
+                </span>
 
             </div>
-            <div class="form-group mt-2 ">
-                <label for="text">Last Name</label>
-                <input type="text" class="form-control" id="text" placeholder="Enter name" value="{{$user->last_name}}" name="lastname">
+            <div class="mb-3">
+                <label for="text" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lname" name="lastname" value="{{$user->last_name}}">
+                <span class="text-danger">
+                    @error('lastname'){{$message}}
+                    @enderror
+                </span>
             </div>
-            <br />
-            <div class="radiogrp d-flex">
+
+            <div class="d-flex" style="margin-top: 64px" ;>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" id="flexRadioDefault1" name="radiobtn" value="{{$user->gender}}">
+                    <input class="form-check-input" type="radio" name="radiobtn" id="flexRadioDefault1" @if($user->gender == 1) checked @endif value="1">
                     <label class="form-check-label" for="flexRadioDefault1">
-                        Male
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" id="flexRadioDefault2" name="radiobtn" value="{{$user->gender}}">
-                    <label class=" form-check-label" for="flexRadioDefault2">
                         Female
                     </label>
                 </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="radiobtn" id="flexRadioDefault2" value="0" @if($user->gender == 0) checked @endif>
+                    <label class="form-check-label" for="flexRadioDefault2">
+                        Male
+                    </label>
+                </div>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="text" class="form-label">Age</label>
+                <input type="text" class="form-control" id="ag" name="age" value="{{$user->age}}">
 
             </div>
-            <button type="submit" class="btn btn-primary">Edit</button>
-        </form>
-    </div>
+            <div class="mb-3">
+                <label for="text" class="form-label">Phone No</label>
+                <input type="text" class="form-control" id="phone" name="phone" value="{{$user->phone}}">
 
+            </div>
+
+
+            <div class="dropdown">
+                <select class="form-select" aria-label="Default select example" name="is_admin" value="{{$user->is_admin}}">
+                    <option value="1" @if($user->is_admin == 1) selected @endif >Admin</option>
+                    <option value="0" @if($user->is_admin == 0) selected @endif>User</option>
+
+                </select>
+
+
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
     </div>
 
 

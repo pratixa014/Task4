@@ -76,7 +76,7 @@
                 <tr>
                     <th>{{$counter}}</th>
                     <td>{{$todo->title}}</td>
-                   
+
                     <td>{{$todo->created_at}}</td>
                     <td>
                         @if($todo->is_completed)
@@ -84,7 +84,7 @@
                         @else
                         <div class="badge bg-warning">Not Completed</div>
                         @endif
-                        <td>{{$todo->description}}</td>
+                    <td>{{$todo->des}}</td>
                     </td>
                     <td>
                         <a href="{{route('todos.edit',['todo'=>$todo->id])}}" class="btn btn-info">Edit</a>

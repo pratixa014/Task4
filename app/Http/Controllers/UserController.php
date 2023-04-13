@@ -105,6 +105,11 @@ class UserController extends Controller
         $user->last_name = $request->get('lastname');
         $user->gender = $request->get('radiobtn');
         $user->age = $request->get('age');
+
+        $user->phone = $request->get('phone');
+        $user->is_admin = $request->get('is_admin');
+
+
         $user->save();
 
         return redirect()->route('user.index');

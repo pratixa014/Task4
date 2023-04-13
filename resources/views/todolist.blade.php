@@ -30,9 +30,9 @@
                 <tr>
                     <th>{{$counter}}</th>
                     <td>{{$todo->title}}</td>
-                    
+
                     <td>{{$todo->created_at}}</td>
-                    
+
                     <td>
                         @if($todo->is_completed)
                         <div class="badge bg-success">Completed</div>
@@ -40,7 +40,7 @@
                         <div class="badge bg-warning">Not Completed</div>
                         @endif
                     </td>
-                    <td>{{$todo->description}}</td>
+                    <td>{{$todo->des}}</td>
 
                 </tr>
 
